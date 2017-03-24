@@ -8,8 +8,13 @@ class MainHandler(tornado.web.RequestHandler):
         self.render("index.html")
 
 class MpgHandler(tornado.web.RequestHandler):
+    def post(self):
+        miles = self.get_argument('miles')
+        gallons = self.get_argument('gallons')
+        dollars = self.get_argument('dollars')
+        self.render('mpg-results.html', miles=miles, gallons=gallons, dollars=dollars)
     def get(self):
-        self.render("mpg-calc.html")
+        self.render('mpg-calc.html')
 
 def main():
     application = tornado.web.Application([
