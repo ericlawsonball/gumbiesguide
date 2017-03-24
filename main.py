@@ -13,7 +13,7 @@ class MpgHandler(tornado.web.RequestHandler):
 
 def main():
     application = tornado.web.Application([
-        (r"/", MainHandler),
+        (r"/*", MainHandler),
         (r"/mpg*",MpgHandler),
     ])
     http_server = tornado.httpserver.HTTPServer(application)
