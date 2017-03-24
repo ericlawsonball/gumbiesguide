@@ -3,6 +3,7 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 import math
+import textwrap
 
 
 # from tornado.options import define, options
@@ -11,6 +12,12 @@ import math
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
+
+class PiHandler(tornado.web.RequestHandler):
+    def get(self):
+        pi= str(math.pi)
+        piLong = '3. ' + textwrap.fill('14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196',6)
+        self.render("pi.html", piPython = pi, piLong = piLong)
 
 class MpgHandler(tornado.web.RequestHandler):
     def post(self):
@@ -27,6 +34,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/*", MainHandler),
             (r"/mpg",MpgHandler),
+            (r"/pi",PiHandler),
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
