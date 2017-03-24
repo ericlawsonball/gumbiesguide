@@ -5,7 +5,11 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello world")
+        self.render("index.html")
+
+class MpgHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("mpg-calc.html")
 
 def main():
     application = tornado.web.Application([
