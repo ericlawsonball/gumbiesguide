@@ -4,6 +4,8 @@ import tornado.ioloop
 import tornado.web
 import math
 import textwrap
+import psycopg2
+from boto.s3.connection import S3Connection
 
 
 # from tornado.options import define, options
@@ -11,7 +13,7 @@ import textwrap
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html")
+        self.render("index.html", s3=s3)
 
 class PiHandler(tornado.web.RequestHandler):
     def get(self):
@@ -48,6 +50,7 @@ def main():
     port = int(os.environ.get("PORT", 5000))
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
+    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 
 if __name__ == "__main__":
     main()
