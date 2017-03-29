@@ -41,7 +41,7 @@ class MpgHandler(tornado.web.RequestHandler):
 
 class Application(tornado.web.Application):
     def __init__(self):
-        handlers = [
+        routes = [
             (r"/", handlers.MainHandler),
             (r"/mpg",MpgHandler),
             (r"/pi",PiHandler),
@@ -55,7 +55,7 @@ class Application(tornado.web.Application):
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             debug=True,
         )
-        tornado.web.Application.__init__(self, handlers, **settings)
+        tornado.web.Application.__init__(self, routes, **settings)
 
 def main():
     http_server = tornado.httpserver.HTTPServer(Application())
