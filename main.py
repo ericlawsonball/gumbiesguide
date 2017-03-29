@@ -1,6 +1,7 @@
 import os
 import tornado.httpserver
 import tornado.ioloop
+from tornado.web import HTTPError
 import tornado.web
 import math
 import textwrap
@@ -21,6 +22,30 @@ class PiHandler(tornado.web.RequestHandler):
         pi = str(math.pi)
         piLong = '3. ' + textwrap.fill('14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196',6)
         self.render("pi.html", piPython = pi, piLong = piLong)
+
+class LoginHandler(tornado.web.RequestHandler):
+    def get(self):
+        # userid = self.get_secure_cookie('userid')
+        if self.current_user:
+        # if userid:
+            self.redirect('/')
+        else:
+            self.render("login.html")
+
+    def post(self):
+        email = self.get_argument('email')
+        if '@' not in email:
+            raise HTTPError(400, reason='Invalid email')
+
+        password = self.get_argument('password')
+
+        record = self.application.db.get("SELECT userid from users where username=%s and password=%s limit 1;",
+                                         email, password)
+        if record:
+            self.set_secure_cookie(record['userid'], expires_days=30)
+            self.redirect('/')
+        else:
+            raise HTTPError(401)
 
 
 class MpgHandler(tornado.web.RequestHandler):
@@ -53,13 +78,14 @@ class Application(tornado.web.Application):
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            debug=True,
+            debug=(os.getenv("DEBUG")=='true'),
+            cookie_secret=os.getenv("COOKIE_SECRET")
         )
         tornado.web.Application.__init__(self, routes, **settings)
 
 def main():
     http_server = tornado.httpserver.HTTPServer(Application())
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.getenv("PORT", 5000))
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
 
