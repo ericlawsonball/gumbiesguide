@@ -45,7 +45,7 @@ class Application(tornado.web.Application):
             (r"/", handlers.MainHandler),
             (r"/mpg",MpgHandler),
             (r"/pi",PiHandler),
-            (r"/.*", MainHandler),
+            (r"/.*", handlers.MainHandler),
         ]
         # connects to database
         self.db = tornpsql.Connection()
