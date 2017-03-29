@@ -14,9 +14,8 @@ import tornpsql
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        # connects to database
-        db=tornpsql.Connection()
-        records=db.query("SELECT * FROM mpg")
+
+        records=self.settings["db"].query("SELECT * FROM mpg")
 
         self.render("index.html", records=records)
         # self.write(":)")
@@ -24,19 +23,26 @@ class MainHandler(tornado.web.RequestHandler):
 
 class PiHandler(tornado.web.RequestHandler):
     def get(self):
-        pi= str(math.pi)
+        pi = str(math.pi)
         piLong = '3. ' + textwrap.fill('14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196',6)
         self.render("pi.html", piPython = pi, piLong = piLong)
+
 
 class MpgHandler(tornado.web.RequestHandler):
     def post(self):
         miles = float(self.get_argument('miles'))
         gallons = float(self.get_argument('gallons'))
         dollars = float(self.get_argument('dollars'))
+        self.setttings["db"].query("""INSERT INTO mpg (miles, gallons, dollars)
+                                      VALUES (%s, %s, %s)""",
+                                      miles, gallons, dollars
+                                      )
         # self.render('mpg-results.html', miles=miles, gallons=gallons, dollars=dollars)
         self.render('mpg-results.html', m=miles, g=gallons, d=dollars)
+
     def get(self):
         self.render('mpg-calc.html')
+
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -46,7 +52,11 @@ class Application(tornado.web.Application):
             (r"/pi",PiHandler),
             (r"/.*", MainHandler),
         ]
+        # connects to database
+        db=tornpsql.Connection()
+
         settings = dict(
+            db=db,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             debug=True,
