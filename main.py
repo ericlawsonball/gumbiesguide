@@ -5,7 +5,8 @@ import tornado.web
 import math
 import textwrap
 import psycopg2
-from boto.s3.connection import S3Connection
+import urlparse
+import tornpsql
 
 
 # from tornado.options import define, options
@@ -13,7 +14,13 @@ from boto.s3.connection import S3Connection
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("index.html", s3=s3)
+        # connects to database
+        db=tornpsql.Connection()
+        records=db.query("SELECT * FROM mpg")
+
+        self.render("index.html", records=records)
+        # self.write(":)")
+
 
 class PiHandler(tornado.web.RequestHandler):
     def get(self):
@@ -34,9 +41,10 @@ class MpgHandler(tornado.web.RequestHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/*", MainHandler),
+            (r"/", MainHandler),
             (r"/mpg",MpgHandler),
             (r"/pi",PiHandler),
+            (r"/.*", MainHandler),
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
@@ -50,7 +58,6 @@ def main():
     port = int(os.environ.get("PORT", 5000))
     http_server.listen(port)
     tornado.ioloop.IOLoop.instance().start()
-    s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 
 if __name__ == "__main__":
     main()

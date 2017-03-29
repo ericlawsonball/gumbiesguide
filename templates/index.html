@@ -7,6 +7,8 @@
   <body>
     <p> This is the Gumby's Guide GitHub</p>
     <p> This is in the Templates folder.</p>
-    {{ str(s3) }}
+    {% for row in record %}
+      {{ row["miles"] }}
+    {% end %}
   </body>
 </html>
