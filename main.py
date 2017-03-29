@@ -33,7 +33,7 @@ class MpgHandler(tornado.web.RequestHandler):
         miles = float(self.get_argument('miles'))
         gallons = float(self.get_argument('gallons'))
         dollars = float(self.get_argument('dollars'))
-        self.setttings["db"].query("""INSERT INTO mpg (miles, gallons, dollars)
+        self.settings["db"].query("""INSERT INTO mpg (miles, gallons, dollars)
                                       VALUES (%s, %s, %s)""",
                                       miles, gallons, dollars
                                       )
