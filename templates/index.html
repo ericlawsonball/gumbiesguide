@@ -1,14 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello, World!</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+
+{% block body %}
+
     <p> This is the Gumby's Guide GitHub</p>
     <p> This is in the Templates folder.</p>
     {% for row in records %}
       {{ row["miles"] }}
     {% end %}
-  </body>
-</html>
+
+<div class="ui container">
+
+  <h1>Theming Examples</h1>
+
+  <h2 class="ui dividing header">Site</h2>
+  <iframe src="components/site.html" width="100%" scrolling="no"></iframe>
+
+  <h2 class="ui dividing header">Menu</h2>
+  <iframe src="components/menu.html" width="100%" scrolling="no"></iframe>
+
+  <h2 class="ui dividing header">Buttons</h2>
+  <iframe src="components/button.html" width="100%" scrolling="no"></iframe>
+
+  <h2 class="ui dividing header">Table</h2>
+  <iframe src="components/table.html" width="100%" scrolling="no"></iframe>
+
+  <h2 class="ui dividing header">Input</h2>
+  <iframe src="components/input.html" width="100%" scrolling="no"></iframe>
+
+
+  <h2 class="ui dividing header">Card</h2>
+  <iframe src="components/card.html" width="100%" scrolling="no"></iframe>
+
+
+
+</div>
+{% end %}

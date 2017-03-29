@@ -8,17 +8,12 @@ import psycopg2
 import urlparse
 import tornpsql
 
+import handlers
+
 
 # from tornado.options import define, options
 # define("port", default=8000, help="run on the given port", type=int)
 
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-
-        records=self.settings["db"].query("SELECT * FROM mpg")
-
-        self.render("index.html", records=records)
-        # self.write(":)")
 
 
 class PiHandler(tornado.web.RequestHandler):
@@ -33,7 +28,7 @@ class MpgHandler(tornado.web.RequestHandler):
         miles = float(self.get_argument('miles'))
         gallons = float(self.get_argument('gallons'))
         dollars = float(self.get_argument('dollars'))
-        self.settings["db"].query("""INSERT INTO mpg (miles, gallons, dollars)
+        self.application.db.query("""INSERT INTO mpg (miles, gallons, dollars)
                                       VALUES (%s, %s, %s)""",
                                       miles, gallons, dollars
                                       )
@@ -47,16 +42,15 @@ class MpgHandler(tornado.web.RequestHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/", MainHandler),
+            (r"/", handlers.MainHandler),
             (r"/mpg",MpgHandler),
             (r"/pi",PiHandler),
             (r"/.*", MainHandler),
         ]
         # connects to database
-        db=tornpsql.Connection()
+        self.db = tornpsql.Connection()
 
         settings = dict(
-            db=db,
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             debug=True,
