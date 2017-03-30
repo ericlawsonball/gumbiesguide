@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
+{% block header %}
+  <title>GumbysGuide.com | Index</title>
+{% end %}
+
 {% block body %}
 
-    <p> This is the Gumby's Guide GitHub</p>
-    <p> This is in the Templates folder.</p>
-    {% for row in records %}
-      {{ row["miles"] }}
-    {% end %}
+  <p> This is the Gumby's Guide GitHub</p>
+  <p> This is in the Templates folder.</p>
+  {% for row in records %}
+    {{ row["miles"]+"<br>" }}
+  {% end %}
 
 <div class="ui container">
-
   <h1>Theming Examples</h1>
   <h2 class="ui dividing header">Site</h2>
   <h2 class="ui dividing header">Menu</h2>

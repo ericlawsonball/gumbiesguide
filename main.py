@@ -15,12 +15,26 @@ import handlers
 # from tornado.options import define, options
 # define("port", default=8000, help="run on the given port", type=int)
 
-
+# todo
+# ===========
+# - Format according to python standards
+# - Move handlers to folder
+# - Add login screen
+# - Check cookie_secret
+# - Read/write to database
 
 class PiHandler(tornado.web.RequestHandler):
     def get(self):
         pi = str(math.pi)
-        piLong = '3. ' + textwrap.fill('14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196',6)
+        piLong = '3. ' + textwrap.fill("""141592653589793238462643
+                                          383279502884197169399375
+                                          105820974944592307816406
+                                          286208998628034825342117
+                                          067982148086513282306647
+                                          093844609550582231725359
+                                          408128481117450284102701
+                                          938521105559644622948954
+                                          93038196""",6)
         self.render("pi.html", piPython = pi, piLong = piLong)
 
 class LoginHandler(tornado.web.RequestHandler):
@@ -39,7 +53,9 @@ class LoginHandler(tornado.web.RequestHandler):
 
         password = self.get_argument('password')
 
-        record = self.application.db.get("SELECT userid from users where username=%s and password=%s limit 1;",
+        record = self.application.db.get("""SELECT userid from users
+                                            where username=%s and
+                                            password=%s limit 1;""",
                                          email, password)
         if record:
             self.set_secure_cookie(record['userid'], expires_days=30)

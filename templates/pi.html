@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Pi</title>
-  </head>
-  <body>
-    <p>pi_python= {{piPython}}</p>
-    <p>pi actually = </p>
-    {{piLong}}
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block header %}
+  <title>GumbysGuide.com | Pi</title>
+{% end %}
+
+{% block body %}
+  <p>pi_python= {{piPython}}</p>
+  <p>pi actually = </p>
+  {{piLong}}
+{% end %}

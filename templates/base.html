@@ -2,11 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello, World!</title>
+    {% block header %}
+      <title>GumbysGuide.com</title>
+    {% end %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>
   </head>
+
   <body>
     {% block body %}{% end %}
   </body>

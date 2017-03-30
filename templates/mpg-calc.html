@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>MPG Calculator</title>
-  </head>
-  <body>
-      <h1>Enter data below:</h1>
-      <form method="post" action="/mpg">
-      <p>Miles:<br><input type="text" name="miles"></p>
-      <p>Gallons:<br><input type="text" name="gallons"></p>
-      <p>Total Cost ($):<br><input type="text" name="dollars"></p>
-      <input type="submit">
-      </form>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block header %}
+  <title>GumbysGuide.com | MPG</title>
+{% end %}
+
+{% block body %}
+  <h1>Enter data below:</h1>
+  <form method="post" action="/mpg">
+  <p>Miles:<br><input type="text" name="miles"></p>
+  <p>Gallons:<br><input type="text" name="gallons"></p>
+  <p>Total Cost ($):<br><input type="text" name="dollars"></p>
+  <input type="submit">
+  </form>
+{% end %}
