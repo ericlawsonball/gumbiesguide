@@ -9,7 +9,7 @@
   <p>Your mileage was {{ m / g }} mpg</p>
   <p>Your cost was ${{ d / g }}/gal or ${{d / m}}/mile</p>
 
-  <h2>Other Results:</h2>
+  <h2>Previous Miles:</h2>
   {% for row in records %}
     {{ str(row["miles"])}}<br>
   {% end %}
