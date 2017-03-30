@@ -6,19 +6,29 @@
 
 {% block body %}
 
-  <p> This is the Gumby's Guide GitHub</p>
-  <p> This is in the Templates folder.</p>
-  {% for row in records %}
-    {{ str(row["miles"])}}<br>
-  {% end %}
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a>
+        <a class="active item">Home</a>
+        <a class="item">Work</a>
+        <a class="item">Company</a>
+        <a class="item">Careers</a>
+        <div class="right item">
+          <a class="ui inverted button">Log in</a>
+          <a class="ui inverted button">Sign Up</a>
+        </div>
+      </div>
+    </div>
 
-<div class="ui container">
-  <h1>Theming Examples</h1>
-  <h2 class="ui dividing header">Site</h2>
-  <h2 class="ui dividing header">Menu</h2>
-  <h2 class="ui dividing header">Buttons</h2>
-  <h2 class="ui dividing header">Table</h2>
-  <h2 class="ui dividing header">Input</h2>
-  <h2 class="ui dividing header">Card</h2>
-</div>
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+        A Gumby's Guide
+      </h1>
+      <h2>Stay Safe.  Get Stoked.  Climb Strong.</h2>
+      <div class="ui huge primary button">Enter!<i class="right arrow icon"></i></div>
+    </div>
+
+
 {% end %}
