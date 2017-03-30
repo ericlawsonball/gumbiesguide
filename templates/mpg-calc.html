@@ -7,9 +7,18 @@
 {% block body %}
   <h1>Enter data below:</h1>
   <form method="post" action="/mpg">
-  <p>Miles:<br><input type="text" name="miles"></p>
-  <p>Gallons:<br><input type="text" name="gallons"></p>
-  <p>Total Cost ($):<br><input type="text" name="dollars"></p>
-  <input type="submit">
+
+          <a class="ui label">Miles</a>
+          <input placeholder="miles driven" type="text" name="miles">
+          <a class="ui label">Gallons</a>
+          <input placeholder="gallons of gas consumed" type="text" name="gallons">
+          <a class="ui label">Dollars</a>
+          <input placeholder="total cost of fill-up ($)" type="text" name="dollars">
+        <!--
+    <p>Miles:<br><input type="text" name="miles"></p>
+    <p>Gallons:<br><input type="text" name="gallons"></p>
+    <p>Total Cost ($):<br><input type="text" name="dollars"></p> -->
+    <button class="ui massive button">Submit</button>
+    <input type="submit">
   </form>
 {% end %}
