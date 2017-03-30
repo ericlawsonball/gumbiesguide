@@ -74,7 +74,9 @@ class MpgHandler(tornado.web.RequestHandler):
                                       miles, gallons, dollars
                                       )
         # self.render('mpg-results.html', miles=miles, gallons=gallons, dollars=dollars)
-        self.render('mpg-results.html', m=miles, g=gallons, d=dollars)
+        records=self.application.db.query("SELECT * FROM mpg")
+        self.render("index.html", records=records)
+        self.render('mpg-results.html', m=miles, g=gallons, d=dollars, records=records)
 
     def get(self):
         self.render('mpg-calc.html')
