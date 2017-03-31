@@ -15,13 +15,7 @@ import handlers
 # from tornado.options import define, options
 # define("port", default=8000, help="run on the given port", type=int)
 
-# todo
-# ===========
-# - Format according to python standards
-# - Move handlers to folder
-# - Add login screen
-# - Check cookie_secret
-# - Read/write to database
+
 
 class PiHandler(tornado.web.RequestHandler):
     def get(self):
@@ -74,8 +68,9 @@ class MpgHandler(tornado.web.RequestHandler):
                                       miles, gallons, dollars
                                       )
         # self.render('mpg-results.html', miles=miles, gallons=gallons, dollars=dollars)
-        records=self.application.db.query("SELECT * FROM mpg")
-        self.render('mpg-results.html', m=miles, g=gallons, d=dollars, records=records)
+        records = self.application.db.query("SELECT * FROM mpg")
+        x = 10
+        self.render('mpg-results.html', m=miles, g=gallons, d=dollars, records=records, x=x)
 
     def get(self):
         self.render('mpg-calc.html')
