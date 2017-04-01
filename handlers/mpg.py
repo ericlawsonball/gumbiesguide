@@ -18,9 +18,16 @@ class MpgHandler(tornado.web.RequestHandler):
                                                ORDER BY timestamp DESC
                                                LIMIT 30
                                                """)
-        x = 10
-        self.render('mpg-results.html', m=miles, g=gallons, d=dollars,
-                    records=records, x=x)
+        self.render('mpg-results.html', records=records)
 
     def get(self):
         self.render('mpg-calc.html')
+
+class MpgViewHandler(tornado.web.RequestHandler):
+    def get(self):
+        records = self.application.db.query("""SELECT *
+                                               FROM mpg
+                                               ORDER BY timestamp DESC
+                                               LIMIT 30
+                                               """)
+        self.render('mpg-results.html', records=records)

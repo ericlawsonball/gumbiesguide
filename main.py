@@ -16,6 +16,7 @@ class Application(tornado.web.Application):
         routes = [
             (r"/", handlers.MainHandler),
             (r"/mpg",handlers.MpgHandler),
+            (r"/mpg-view",handlers.MpgViewHandler),
             (r"/pi",handlers.PiHandler),
             (r"/.*", handlers.MainHandler),
         ]
