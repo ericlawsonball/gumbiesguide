@@ -7,13 +7,17 @@ class MpgHandler(tornado.web.RequestHandler):
         gallons = float(self.get_argument('gallons'))
         dollars = float(self.get_argument('dollars'))
         self.application.db.query("""INSERT INTO mpg (miles, gallons, dollars,
-                                      mileage, cost_per_mile, date)
+                                      mileage, cost_per_mile, timestamp)
                                       VALUES (%s, %s, %s, %s, %s, %s)""",
                                       miles, gallons, dollars,
                                       miles / gallons, dollars / miles, str(datetime.now())
                                       )
         # self.render('mpg-results.html', miles=miles, gallons=gallons, dollars=dollars)
-        records = self.application.db.query("SELECT * FROM mpg LIMIT 30")
+        records = self.application.db.query("""SELECT *
+                                               FROM mpg
+                                               ORDER BY timestamp DESC
+                                               LIMIT 30
+                                               """)
         x = 10
         self.render('mpg-results.html', m=miles, g=gallons, d=dollars,
                     records=records, x=x)

@@ -19,3 +19,4 @@
 - heroku pg:psql
 - ALTER TABLE mytable ADD COLUMN mycolumn variable_name var_type
 - \q quits psql
+- \d mpg lists types
