@@ -16,3 +16,6 @@
 - git add . && git commit -m "fixed things" && git push heroku master
 - heroku local web
 - http://localhost:5000
+- heroku pg:psql
+- ALTER TABLE mytable ADD COLUMN mycolumn variable_name var_type
+- \q quits psql

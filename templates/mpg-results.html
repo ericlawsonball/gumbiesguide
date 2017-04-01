@@ -10,26 +10,33 @@
   <p>Your mileage was {{ m / g }} mpg</p>
   <p>Your cost was ${{ d / g }}/gal or ${{d / m}}/mile</p>
 
-
 <table class="ui right aligned table">
   <thead>
     <tr>
+    <th class="left aligned">#</th>
+    <th class="left aligned">Date</th>
     <th class="left aligned">Miles</th>
-    <th>Gallons</th>
-    <th>Dollars</th>
-    <th>mpg</th>
-    <th>dol/miles</th>
+    <th class="left aligned">Gallons</th>
+    <th class="left aligned">Dollars</th>
+    <th class="left aligned">MPG</th>
+    <th class="left aligned">Cost ($/mile)</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
+  {% set counter = 0 %}
   {% for row in records %}
+      {% set counter = counter + 1 %}
       <font face="courier">
       <tr>
+        <td class="left aligned">{{ counter }}</td>
+        <td class="left aligned">{{ str(row["date"])[0:x] }}</td>
         <td class="left aligned">{{ str(row["miles"])[0:x] }}</td>
-        <td>{{ str(row["gallons"])[0:x] }}</td>
-        <td>{{ str(row["dollars"])[0:x] }}</td>
-        <td>{{ str(row["miles"] / row["gallons"])[0:x] }}</td>
-        <td>{{ str(row["dollars"] / row["miles"])[0:x] }}</td>
+        <td class="left aligned">{{ str(row["gallons"])[0:x] }}</td>
+        <td class="left aligned">{{ str(row["dollars"])[0:x] }}</td>
+        <td class="left aligned">{{ str(row["mileage"])[0:x] }}</td>
+        <td class="left aligned">{{ str(row["cost_per_mile"])[0:x] }}</td>
+        <td><button class="ui small button">Edit</button></td>
       </tr>
       </font>
   {% end %}
