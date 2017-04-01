@@ -23,26 +23,28 @@
     <th></th>
   </tr>
   </thead>
-  <tbody>
+
+  <tbody style="font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;">
   {% set counter = 0 %}
   {% for row in records %}
-      {% set counter = counter + 1 %}
-      <font face="courier">
+    {% set counter = counter + 1 %}
+    {% if counter == 1 %}
+      <tr style="color:red; font-weight:bold;">
+    {% else %}
       <tr>
-        <td class="left aligned">{{ counter }}</td>
-        <td class="left aligned">
-           {{ datetime.datetime.strftime(row["timestamp"],"%-b %-d, %Y - %-I:%M %p") }}
-        </td>
-        <td class="left aligned">{{ str( '{0:.1f}'.format(row["miles"])) }}</td>
-        <td class="left aligned">{{ str( '{0:.2f}'.format(row["gallons"])) }}</td>
-        <td class="left aligned">${{ str( '{0:.2f}'.format(row["dollars"])) }}</td>
-        <td class="left aligned">{{ str( '{0:.2f}'.format(row["mileage"])) }}</td>
-        <td class="left aligned">${{ str( '{0:.2f}'.format(row["cost_per_mile"])) }}</td>
-        <td><button class="ui small button">Edit</button></td>
-      </tr>
-      </font>
-      {% end %}
-   </tbody>
- </table>
+    {% end %}
+      <td class="left aligned">{{ counter }}</td>
+      <td class="left aligned">{{ datetime.datetime.strftime(
+        row["timestamp"],"%-b %-d, %Y - %-I:%M %p") }}</td>
+      <td class="left aligned">{{ str( '{0:.1f}'.format(row["miles"])) }}</td>
+      <td class="left aligned">{{ str( '{0:.2f}'.format(row["gallons"])) }}</td>
+      <td class="left aligned">${{ str( '{0:.2f}'.format(row["dollars"])) }}</td>
+      <td class="left aligned">{{ str( '{0:.2f}'.format(row["mileage"])) }}</td>
+      <td class="left aligned">${{ str( '{0:.2f}'.format(row["cost_per_mile"])) }}</td>
+      <td><button class="ui small button" row="{{ counter }}">Edit</button></td>
+    </tr>
+  {% end  %}
+  </tbody>
+</table>
 </div>
 {% end %}
