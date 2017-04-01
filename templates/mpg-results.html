@@ -30,12 +30,12 @@
       <font face="courier">
       <tr>
         <td class="left aligned">{{ counter }}</td>
-        <td class="left aligned">{{ str(row["date"])[0:x] }}</td>
-        <td class="left aligned">{{ str(row["miles"])[0:x] }}</td>
-        <td class="left aligned">{{ str(row["gallons"])[0:x] }}</td>
-        <td class="left aligned">{{ str(row["dollars"])[0:x] }}</td>
-        <td class="left aligned">{{ str(row["mileage"])[0:x] }}</td>
-        <td class="left aligned">{{ str(row["cost_per_mile"])[0:x] }}</td>
+        <td class="left aligned">{{ str(row["date"]) }}</td>
+        <td class="left aligned">{{ str( '{0:.1f}'.format(row["miles"])) }}</td>
+        <td class="left aligned">{{ str( '{0:.2f}'.format(row["gallons"])) }}</td>
+        <td class="left aligned">${{ str( '{0:.2f}'.format(row["dollars"])) }}</td>
+        <td class="left aligned">{{ str( '{0:.2f}'.format(row["mileage"])) }}</td>
+        <td class="left aligned">${{ str( '{0:.2f}'.format(row["cost_per_mile"])) }}</td>
         <td><button class="ui small button">Edit</button></td>
       </tr>
       </font>
