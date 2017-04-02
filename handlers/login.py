@@ -1,4 +1,5 @@
 import tornado.web
+import random
 
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
@@ -7,21 +8,31 @@ class LoginHandler(tornado.web.RequestHandler):
         # if userid:
             self.redirect('/')
         else:
-            self.render("login.html")
+            self.render('login.html', msg = '')
 
     def post(self):
         email = self.get_argument('email')
-        if '@' not in email:
-            raise HTTPError(400, reason='Invalid email')
-
         password = self.get_argument('password')
 
-        record = self.application.db.get("""SELECT userid from users
-                                            where username=%s and
-                                            password=%s limit 1;""",
-                                         email, password)
+        record = self.application.db.get("""SELECT user_id
+                                             FROM users
+                                             WHERE username=%s
+                                             AND password=%s
+                                             LIMIT 1
+                                             ;""", email, password)
         if record:
-            self.set_secure_cookie(record['userid'], expires_days=30)
-            self.redirect('/')
+            self.write('Welcome! User ID: ' + record['user_id'])
         else:
-            raise HTTPError(401)
+            self.render('login.html', msg = 'Bad email/password! (Attempt ID: '
+                                             + str(random.randint(1000,9999))
+                                             + ')')
+
+        # record = self.application.db.get("""SELECT userid from users
+        #                                     where username=%s and
+        #                                     password=%s limit 1;""",
+        #                                  email, password)
+        # if record:
+        #     self.set_secure_cookie(record['userid'], expires_days=30)
+        #     self.redirect('/')
+        # else:
+        #     raise HTTPError(401)

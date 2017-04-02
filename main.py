@@ -11,6 +11,13 @@ import tornpsql
 
 import handlers
 
+class ImageHandler(tornado.web.RequestHandler):
+    def get(self):
+       header = "image/png"
+       ifile = open("/assets/images/white-image.png","r")
+       self.add_header("Content-Type",header)
+       self.write(ifile.read())
+
 class Application(tornado.web.Application):
     def __init__(self):
         routes = [
@@ -18,6 +25,9 @@ class Application(tornado.web.Application):
             (r"/mpg",handlers.MpgHandler),
             (r"/mpg-view",handlers.MpgViewHandler),
             (r"/pi",handlers.PiHandler),
+            (r"/image", ImageHandler),
+            (r"/login", handlers.LoginHandler),
+            (r"/signup", handlers.SignupHandler),
             (r"/.*", handlers.MainHandler),
         ]
         # connects to database
