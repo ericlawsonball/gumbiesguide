@@ -20,3 +20,9 @@
 - ALTER TABLE mytable ADD COLUMN mycolumn variable_name var_type
 - \q quits psql
 - \d mpg lists types
+- cd ~/sand*/gum* && heroku pg:psql
+- heroku config
+- heroku config set:VAR_TO_CHANGE='value to set'
+- heroku config:get CONFIG-VAR-NAME -s  >> .env
+ (Saves config variables to local environment)
+- http://stackoverflow.com/questions/12505158/generating-a-uuid-in-postgres-for-insert-statement

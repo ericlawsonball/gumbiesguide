@@ -11,12 +11,10 @@ import tornpsql
 
 import handlers
 
-class ImageHandler(tornado.web.RequestHandler):
-    def get(self):
-       header = "image/png"
-       ifile = open("/assets/images/white-image.png","r")
-       self.add_header("Content-Type",header)
-       self.write(ifile.read())
+class BaseHandler(tornado.web.RequestHandler):
+    # checks current logged in user
+    def get_current_user(self):
+        return self.get_secure_cookie("userid")
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -25,7 +23,6 @@ class Application(tornado.web.Application):
             (r"/mpg",handlers.MpgHandler),
             (r"/mpg-view",handlers.MpgViewHandler),
             (r"/pi",handlers.PiHandler),
-            (r"/image", ImageHandler),
             (r"/login", handlers.LoginHandler),
             (r"/signup", handlers.SignupHandler),
             (r"/.*", handlers.MainHandler),
