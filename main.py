@@ -25,6 +25,7 @@ class Application(tornado.web.Application):
             (r"/pi",handlers.PiHandler),
             (r"/login", handlers.LoginHandler),
             (r"/signup", handlers.SignupHandler),
+            # (r"/assets/(.*)", tornado.web.StaticFileHandler, {'path': }
             (r"/.*", handlers.MainHandler),
         ]
         # connects to database
