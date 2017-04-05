@@ -6,8 +6,14 @@ class LoginHandler(tornado.web.RequestHandler):
         userid = self.get_secure_cookie('userid')
         # if self.current_user:
         if userid:
-            name = tornado.escape.xhtml_escape(self.get_secure_cookie('userid'))
-            self.render('login.html', msg = 'Already logged in as ' + name)
+            userid = tornado.escape.xhtml_escape(self.get_secure_cookie('userid'))
+            record = self.application.db.get("""SELECT first_name
+                                                 FROM users
+                                                 WHERE userid=%s
+                                                 LIMIT 1
+                                                 ;""", userid)
+            firstName = record["first_name"]
+            self.render('login.html', msg = 'You are already logged in, ' + firstName + '!')
         else:
             self.render('login.html', msg = '')
 
@@ -28,3 +34,8 @@ class LoginHandler(tornado.web.RequestHandler):
             self.render('login.html', msg = 'Bad email/password! (Attempt ID: '
                                              + str(random.randint(1000,9999))
                                              + ')')
+
+class LogoutHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.clear_cookie('userid')
+        self.render('index.html', firstName = "", flagLoggedIn = False)

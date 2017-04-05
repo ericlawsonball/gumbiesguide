@@ -16,8 +16,13 @@
         <a class="active item" href="/">Home</a>
         <a class="item" href="gear">Gear</a>
         <div class="right item">
-          <a class="ui inverted button" href="/login">Log in</a>
-          <a class="ui inverted button" href="/signup">Sign Up</a>
+          {% if flagLoggedIn == True %}
+            <a class="ui inverted button">{{ firstName }}</a>
+            <a class="ui inverted button" href="/logout"> Log Out </a>
+          {% else %}
+            <a class="ui inverted button" href="/login">Log in</a>
+            <a class="ui inverted button" href="/signup">Sign Up</a>
+          {% end %}
         </div>
       </div>
     </div>
@@ -25,7 +30,8 @@
     <div class="ui text container">
       <h1 class="ui inverted header">A Gumby's Guide</h1>
       <h2>Stay Safe.  Get Stoked.  Climb Strong.</h2>
-      <div class="ui huge primary button">Get the Book <i class="right arrow icon"></i></div>
+      <div class="ui huge primary button">Get the Book
+         <i class="right arrow icon"></i></div>
     </div>
 
   </div>

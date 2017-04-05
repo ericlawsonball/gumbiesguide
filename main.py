@@ -24,8 +24,8 @@ class Application(tornado.web.Application):
             (r"/mpg-view",handlers.MpgViewHandler),
             (r"/pi",handlers.PiHandler),
             (r"/login", handlers.LoginHandler),
+            (r"/logout", handlers.LogoutHandler),
             (r"/signup", handlers.SignupHandler),
-            # (r"/assets/(.*)", tornado.web.StaticFileHandler, {'path': }
             (r"/.*", handlers.MainHandler),
         ]
         # connects to database

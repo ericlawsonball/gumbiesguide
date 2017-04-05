@@ -26,3 +26,4 @@
 - heroku config:get CONFIG-VAR-NAME -s  >> .env
  (Saves config variables to local environment)
 - http://stackoverflow.com/questions/12505158/generating-a-uuid-in-postgres-for-insert-statement
+- uuid_generate_v4()
